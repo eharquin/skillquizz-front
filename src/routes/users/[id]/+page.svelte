@@ -6,7 +6,7 @@
     export let data: EditUserData;
 </script>
 
-<form class="pt-8" action="/user" method="POST" use:submit>
+<form class="pt-8" action="/user/{data.user.id}" x-method="patch" x-redirect="/users" use:submit>
     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6">
             <TextInput title="Nom" name="name" value="{data.user.name}"/>

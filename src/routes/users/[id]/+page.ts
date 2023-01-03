@@ -1,5 +1,6 @@
 import type {PageLoad} from './$types';
 import type User from "$lib/types/user";
+import {env} from "$env/dynamic/public";
 
 export interface EditUserData {
   title: string,
@@ -7,15 +8,7 @@ export interface EditUserData {
 }
 
 export const load: PageLoad<EditUserData> = async ({params}) => {
-  // TODO: fetch the user here
-  const user: User = {
-    id: parseInt(params.id),
-    name: 'Antonin',
-    type: 'admin',
-    email: 'agu@evertrust.fr',
-    company: 'EverTrust',
-    phoneNumber: '0631616085'
-  }
+  const user: User = await fetch(env.PUBLIC_BASE_URL + `/user/${params.id}`).then(r => r.json());
 
   return {
     title: 'Utilisateur ' + user.name,
