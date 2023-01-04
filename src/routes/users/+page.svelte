@@ -1,11 +1,14 @@
-<script>
+<script lang="ts">
     import {title} from "$lib/store";
+    import type User from "$lib/types/user";
     title.set('Utilisateurs');
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    export let data: User[];
 </script>
 
+<div class="flex justify-end">
+    <a href="/users/create" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Créer</a>
+</div>
 <div class="mt-8 flex flex-col">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

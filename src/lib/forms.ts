@@ -1,5 +1,4 @@
 import {env} from "$env/dynamic/public";
-import { redirect } from '@sveltejs/kit';
 import {goto} from "$app/navigation";
 
 export function submit(form: HTMLFormElement) {
@@ -13,21 +12,21 @@ export function submit(form: HTMLFormElement) {
     if (submitting) return;
     submitting = true;
 
-    const data = {};
-    new FormData(form).forEach((value, key) => data[key] = value);
+    const data = new Map<string, string>();
+    new FormData(form).forEach((value, key) => data.set(key, value.toString()));
 
     const response = await fetch(new URL(form.getAttribute('action') ?? '', env.PUBLIC_BASE_URL), {
-      method: form.getAttribute('x-method')?.toUpperCase() ?? 'POST',
+      method: form.getAttribute('data-method')?.toUpperCase() ?? 'POST',
       headers: {
         'content-type': 'application/json',
         'accept': 'application/json',
       },
       cache: 'no-store',
-      body: JSON.stringify(data),
+      body: JSON.stringify(Object.fromEntries(data)),
     });
 
     if(response.ok) {
-      await goto(form.getAttribute('x-redirect') ?? '/');
+      await goto(form.getAttribute('data-redirect') ?? '/');
     }
 
     submitting = false
