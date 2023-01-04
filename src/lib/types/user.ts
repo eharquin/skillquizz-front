@@ -6,3 +6,8 @@ export default interface User {
     company: string,
     phoneNumber: string,
 }
+
+export interface UserDetails {
+    email: string,
+    password: string,
+}

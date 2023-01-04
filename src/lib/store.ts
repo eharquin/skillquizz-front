@@ -1,17 +1,6 @@
-import { writable } from 'svelte/store';
+import {writable} from 'svelte/store';
+import {writable as localWritable} from 'svelte-local-storage-store'
 
-function createTitle() {
-    const {subscribe, set, update} = writable('');
+export const title = writable('Home');
 
-    return {
-        subscribe,
-        set: (value: string) => {
-            set(`${value}`)
-        },
-        clear: () => {
-            set('Home');
-        }
-    }
-}
-
-export const title = createTitle();
+export const user = localWritable<string | null>('user', null);

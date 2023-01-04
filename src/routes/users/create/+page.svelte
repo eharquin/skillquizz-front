@@ -28,6 +28,10 @@
         <div class="sm:col-span-3">
             <TextInput title="Téléphone" name="phoneNumber"/>
         </div>
+
+        <div class="sm:col-span-3">
+            <TextInput title="Mot de passe" name="password" type="password"/>
+        </div>
     </div>
     <div class="pt-5">
         <div class="flex justify-end">

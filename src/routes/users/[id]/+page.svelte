@@ -1,37 +1,47 @@
 <script lang="ts">
     import {title} from "$lib/store";
+    import { page } from '$app/stores';
     import {submit} from '$lib/forms';
     import TextInput from "$lib/forms/TextInput.svelte";
     import SelectInput from "$lib/forms/SelectInput.svelte";
     import type User from "$lib/types/user";
-    export let data: User;
-    title.set("Utilisateur " + data.name);
+    import {onMount} from "svelte";
+    import {client} from "$lib/http";
+    title.set("Utilisateur");
+
+    let user : User|null = null;
+
+    onMount(async () => {
+        const res = await client.get('/user/' + $page.params.id);
+        user = await res.data;
+        title.set("Utilisateur " + user?.name);
+    });
 </script>
 
-<form class="flex justify-end" action="/user/{data.id}" data-method="delete" data-redirect="/users" use:submit>
+<form class="flex justify-end" action="/user/{user?.id}" data-method="delete" data-redirect="/users" use:submit>
     <button class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Supprimer</button>
 </form>
 
-<form class="pt-8" action="/user/{data.id}" data-method="patch" data-redirect="/users" use:submit>
+<form class="pt-8" action="/user/{user?.id}" data-method="patch" data-redirect="/users" use:submit>
     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6">
-            <TextInput title="Nom" name="name" value="{data.name}"/>
+            <TextInput title="Nom" name="name" value="{user?.name}"/>
         </div>
 
         <div class="sm:col-span-3">
-            <SelectInput title="Type" name="type" options="{{'user': 'Utilisateur', 'admin': 'Administrateur'}}" value="{data.type}"/>
+            <SelectInput title="Type" name="type" options="{{'user': 'Utilisateur', 'admin': 'Administrateur'}}" value="{user?.type}"/>
         </div>
 
         <div class="sm:col-span-3">
-            <TextInput title="Adresse mail" name="email" value="{data.email}"/>
+            <TextInput title="Adresse mail" name="email" value="{user?.email}"/>
         </div>
 
         <div class="sm:col-span-3">
-            <TextInput title="Entreprise" name="company" value="{data.company}"/>
+            <TextInput title="Entreprise" name="company" value="{user?.company}"/>
         </div>
 
         <div class="sm:col-span-3">
-            <TextInput title="Téléphone" name="phoneNumber" value="{data.phoneNumber}"/>
+            <TextInput title="Téléphone" name="phoneNumber" value="{user?.phoneNumber}"/>
         </div>
     </div>
     <div class="pt-5">

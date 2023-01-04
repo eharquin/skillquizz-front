@@ -1,9 +1,16 @@
 <script lang="ts">
     import {title} from "$lib/store";
     import type Quizz from "$lib/types/quizz";
+    import {onMount} from "svelte";
+    import {client} from "$lib/http";
     title.set('Questionnaires');
 
-    export let data: Quizz[];
+    export let quizzes: Quizz[] = [];
+
+    onMount(async () => {
+        const res = await client.get('/quizz');
+        quizzes = await res.data;
+    });
 </script>
 
 <div class="mt-8 flex flex-col">
@@ -22,7 +29,7 @@
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
-                    {#each Object.values(data) as quizz}
+                    {#each quizzes as quizz}
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{quizz.skill}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

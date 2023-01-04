@@ -1,9 +1,16 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import {title} from "$lib/store";
     import type User from "$lib/types/user";
+    import {client} from "$lib/http";
     title.set('Utilisateurs');
 
-    export let data: User[];
+    let users: User[] = [];
+
+    onMount(async () => {
+        const res = await client.get('/user');
+        users = await res.data;
+    });
 </script>
 
 <div class="flex justify-end">
@@ -28,7 +35,7 @@
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
-                    {#each Object.values(data) as user}
+                    {#each users as user}
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.name}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.company}</td>
