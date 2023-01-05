@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {client} from "$lib/http";
+    import client from "$lib/http";
     import {user} from "$lib/store";
     import {goto} from "$app/navigation";
 

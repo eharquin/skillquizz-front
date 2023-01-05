@@ -1,13 +1,4 @@
-interface Answer {
-    id: number;
-    text: string;
-}
-
-interface Question {
-    id: number;
-    text: string;
-    answers: Answer[];
-}
+import type {Question} from "$lib/types/answer";
 
 export default interface Quizz {
     id: number,

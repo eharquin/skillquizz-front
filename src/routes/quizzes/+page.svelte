@@ -2,14 +2,19 @@
     import {title} from "$lib/store";
     import type Quizz from "$lib/types/quizz";
     import {onMount} from "svelte";
-    import {client} from "$lib/http";
+    import client from "$lib/http";
+    import type Course from "$lib/types/course";
+
     title.set('Questionnaires');
 
-    export let quizzes: Quizz[] = [];
+    let quizzes: Quizz[] = [];
+    let courses: Course[] = [];
 
     onMount(async () => {
         const res = await client.get('/quizz');
         quizzes = await res.data;
+        const res2 = await client.get('/course');
+        courses = await res2.data;
     });
 </script>
 
@@ -33,7 +38,13 @@
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{quizz.skill}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="/quizzes/{quizz.id}" class="text-indigo-600 hover:text-indigo-900">Participer</a>
+                                {#if courses.filter(course => course.quizz.id === quizz.id).length > 0}
+                                    <a href="/courses/{courses.filter(course => course.quizz.id === quizz.id)[0].id}" class="text-indigo-600 hover:text-indigo-900">
+                                        Voir la participation</a>
+                                {:else}
+                                    <a href="/quizzes/{quizz.id}"
+                                       class="text-indigo-600 hover:text-indigo-900">Participer</a>
+                                {/if}
                             </td>
                         </tr>
                     {/each}

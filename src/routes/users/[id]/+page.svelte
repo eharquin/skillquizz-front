@@ -6,7 +6,7 @@
     import SelectInput from "$lib/forms/SelectInput.svelte";
     import type User from "$lib/types/user";
     import {onMount} from "svelte";
-    import {client} from "$lib/http";
+    import client from "$lib/http";
     title.set("Utilisateur");
 
     let user : User|null = null;

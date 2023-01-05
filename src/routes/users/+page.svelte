@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import {title} from "$lib/store";
     import type User from "$lib/types/user";
-    import {client} from "$lib/http";
+    import client from "$lib/http";
     title.set('Utilisateurs');
 
     let users: User[] = [];

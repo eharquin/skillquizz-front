@@ -4,7 +4,7 @@
     import {page} from '$app/stores';
     import type Quizz from "$lib/types/quizz";
     import {onMount} from "svelte";
-    import {client} from "$lib/http";
+    import client from "$lib/http";
 
     let quizz: Quizz | null = null;
 
@@ -15,17 +15,18 @@
     });
 </script>
 
-{#if (quizz)}
-    <form class="pt-8" action="/quizz/{quizz?.id}" data-method="post" data-redirect="/quizzes" use:submit>
+{#if quizz}
+    <form class="pt-8" action="/course" method="post" data-redirect="/quizzes" use:submit>
+        <input type="hidden" name="quizz.id" value={quizz?.id}>
         {#each quizz?.questions as question, i}
             <div>
                 <label class="text-base font-medium text-gray-900">{question.text}</label>
                 <fieldset class="mt-4">
                     <legend class="sr-only">Notification method</legend>
                     <div class="space-y-4">
-                        {#each question.answers as answer}
+                        {#each question.answers as answer, i}
                             <div class="flex items-center">
-                                <input id="email" name="notification-method" type="radio"
+                                <input id="email" name="answers.{i}.id" type="radio" value={answer.id}
                                        class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                 <label for="email"
                                        class="ml-3 block text-sm font-medium text-gray-700">{answer.text}</label>

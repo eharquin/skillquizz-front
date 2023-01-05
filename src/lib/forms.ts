@@ -1,5 +1,6 @@
 import {goto} from "$app/navigation";
-import {client} from "$lib/http";
+import client from "$lib/http";
+import formJson from "form-json";
 
 export function submit(form: HTMLFormElement) {
 
@@ -12,14 +13,12 @@ export function submit(form: HTMLFormElement) {
         if (submitting) return;
         submitting = true;
 
-        const data = new Map<string, string>();
-        new FormData(form).forEach((value, key) => data.set(key, value.toString()));
-        
+        console.log(formJson(form));
         try {
             const response = await client.request({
                 method: form.getAttribute('method')?.toUpperCase() ?? 'POST',
                 url: form.getAttribute('action') ?? '',
-                data: JSON.stringify(Object.fromEntries(data)),
+                data: JSON.stringify(formJson(form)),
             });
 
             if (response.status === 200) {
