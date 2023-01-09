@@ -5,6 +5,7 @@
     import {onMount} from "svelte";
     import client from "$lib/http";
     import type Course from "$lib/types/course";
+    import TextInput from "$lib/forms/TextInput.svelte";
 
     let course: Course | null = null;
 
@@ -17,6 +18,8 @@
 
 {#if course}
     <form class="pt-8" action="/quizz/{course.quizz?.id}" data-method="post" data-redirect="/quizzes" use:submit>
+        <TextInput title="Score" name="score" value="{course?.score}" disabled/>
+        <TextInput title="Durée" name="duration" value="{course?.duration}" disabled/>
         {#each course.quizz?.questions as question}
             <div>
                 <label class="text-base font-medium text-gray-900">{question.text}</label>
