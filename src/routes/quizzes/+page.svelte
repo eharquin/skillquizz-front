@@ -26,6 +26,9 @@
                     <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                            Nom
+                        </th>
+                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                             Compétence
                         </th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -36,7 +39,8 @@
                     <tbody class="divide-y divide-gray-200 bg-white">
                     {#each quizzes as quizz}
                         <tr>
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{quizz.skill}</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{quizz.nom}</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{quizz.skill.subject}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                 {#if courses.filter(course => course.quizz.id === quizz.id).length > 0}
                                     <a href="/courses/{courses.filter(course => course.quizz.id === quizz.id)[0].id}" class="text-indigo-600 hover:text-indigo-900">

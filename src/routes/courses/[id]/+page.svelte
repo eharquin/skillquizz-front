@@ -11,7 +11,7 @@
     onMount(async () => {
         const res = await client.get('/course/' + $page.params.id);
         course = await res.data;
-        title.set("Réponses à " + course?.quizz.skill);
+        title.set("Réponses à " + course?.quizz.nom);
     });
 </script>
 
