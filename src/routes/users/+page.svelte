@@ -44,7 +44,8 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.type}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.active ? 'Oui' : 'Non'}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="/users/{user.id}" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
+                                <a href="/users/{user.id}/edit" class="text-indigo-600 hover:text-indigo-900">Modifier</a> |
+                                <a href="/users/{user.id}" class="text-indigo-600 hover:text-indigo-900">Voir</a>
                             </td>
                         </tr>
                     {/each}

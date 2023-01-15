@@ -1,3 +1,5 @@
+import type Course from "$lib/types/course";
+
 export default interface User {
     id: number,
     type: string,
@@ -6,6 +8,7 @@ export default interface User {
     company: string,
     phoneNumber: string,
     active: boolean,
+    courses: Course[],
 }
 
 export interface UserDetails {
