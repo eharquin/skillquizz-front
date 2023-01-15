@@ -1,6 +1,5 @@
 <script lang="ts">
     import client from "$lib/http";
-    import {user} from "$lib/store";
     import {goto} from "$app/navigation";
 
     let email: string;
@@ -8,9 +7,8 @@
 
     let handleLogin = () => {
         client.post('/login', {'username': email, password})
-            .then(async (response) => {
-                await user.set(response.data.token);
-                goto("/quizzes");
+            .then(async () => {
+                goto('/quizzes');
             })
             .catch(error => {
                 console.log(error);
