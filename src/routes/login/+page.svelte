@@ -6,16 +6,11 @@
     let email: string;
     let password: string;
 
-    user.subscribe((value) => {
-    	if (value != null) {
-    		goto("/quizzes");
-    	}
-    });
-
     let handleLogin = () => {
         client.post('/login', {'username': email, password})
-            .then(response => {
-                user.set(response.data.token);
+            .then(async (response) => {
+                await user.set(response.data.token);
+                goto("/quizzes");
             })
             .catch(error => {
                 console.log(error);

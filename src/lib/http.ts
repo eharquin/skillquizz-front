@@ -14,11 +14,11 @@ const client = axios.create({
 });
 
 client.interceptors.response.use((response) => response, function (e) {
-    // If status is 401, redirect to login page
-    // if (e.response!.status === 401) {
-        // user.set(null);
-        // goto('/login');
-    // }
+    // If status is 403 (ie token expired), redirect to login page
+    if (e.response!.status === 401) {
+        user.set(null);
+        goto('/login');
+    }
 });
 
 export default client;

@@ -7,6 +7,7 @@
     import type User from "$lib/types/user";
     import {onMount} from "svelte";
     import client from "$lib/http";
+    import Checkbox from "$lib/forms/Checkbox.svelte";
     title.set("Utilisateur");
 
     let user : User|null = null;
@@ -18,11 +19,11 @@
     });
 </script>
 
-<form class="flex justify-end" action="/user/{user?.id}" data-method="delete" data-redirect="/users" use:submit>
+<form class="flex justify-end" action="/user/{user?.id}" method="delete" data-redirect="/users" use:submit>
     <button class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Supprimer</button>
 </form>
 
-<form class="pt-8" action="/user/{user?.id}" data-method="patch" data-redirect="/users" use:submit>
+<form class="pt-8" action="/user/{user?.id}" method="patch" data-redirect="/users" use:submit>
     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6">
             <TextInput title="Nom" name="name" value="{user?.name}"/>
@@ -42,6 +43,10 @@
 
         <div class="sm:col-span-3">
             <TextInput title="Téléphone" name="phoneNumber" value="{user?.phoneNumber}"/>
+        </div>
+
+        <div class="sm:col-span-3">
+            <Checkbox title="Actif" name="active" value="{user?.active}"/>
         </div>
     </div>
     <div class="pt-5">

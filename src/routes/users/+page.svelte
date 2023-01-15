@@ -29,6 +29,7 @@
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Company</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actif</th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                             <span class="sr-only">Edit</span>
                         </th>
@@ -41,8 +42,9 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.company}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.email}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.type}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.active ? 'Oui' : 'Non'}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="/users/{user.id}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                <a href="/users/{user.id}" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
                             </td>
                         </tr>
                     {/each}

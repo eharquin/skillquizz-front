@@ -5,6 +5,7 @@ export default interface User {
     name: string,
     company: string,
     phoneNumber: string,
+    active: boolean,
 }
 
 export interface UserDetails {

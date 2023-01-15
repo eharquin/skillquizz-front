@@ -7,19 +7,21 @@
     import client from "$lib/http";
 
     let quizz: Quizz | null = null;
+    let questionIndex = 0;
 
     onMount(async () => {
         const res = await client.get('/quizz/' + $page.params.id);
         quizz = await res.data;
-        title.set("Quizz " + quizz?.skill)
+        title.set("Quizz " + quizz?.skill.subject)
     });
 </script>
 
 {#if quizz}
     <form class="pt-8" action="/course" method="post" data-redirect="/quizzes" use:submit>
         <input type="hidden" name="quizz.id" value={quizz?.id}>
+        <input type="hidden" name="startDate" value="{Date.now()}">
         {#each quizz?.questions as question, i}
-            <div>
+            <div class="{questionIndex === i ? '' : 'hidden'}">
                 <label class="text-base font-medium text-gray-900">{question.text}</label>
                 <fieldset class="mt-4">
                     <legend class="sr-only">Notification method</legend>
@@ -38,10 +40,18 @@
         {/each}
         <div class="pt-5">
             <div class="flex justify-end">
-                <button type="submit"
-                        class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Save
-                </button>
+                {#if questionIndex == quizz.questions.length - 1}
+                    <button type="submit"
+                            class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Valider la participation
+                    </button>
+                {:else}
+                    <button type="button"
+                            on:click={() => questionIndex++}
+                            class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Question suivante
+                    </button>
+                {/if}
             </div>
         </div>
     </form>

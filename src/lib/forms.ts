@@ -13,7 +13,6 @@ export function submit(form: HTMLFormElement) {
         if (submitting) return;
         submitting = true;
 
-        console.log(formJson(form));
         try {
             const response = await client.request({
                 method: form.getAttribute('method')?.toUpperCase() ?? 'POST',

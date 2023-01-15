@@ -6,6 +6,6 @@ export default interface Course {
     quizz: Quizz;
     duration: number;
     score: number;
-    answers: Answer[];
+    answers: number[];
 
 }
